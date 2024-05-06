@@ -3,13 +3,6 @@ const mariadb = require('mariadb');
 // DB 쿼리할 때 환경변수를 사용하려면 여기에 import한다.
 require("dotenv").config();
 
-// const pool = mariadb.createPool({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'manchu9810!',
-//   database: 'reddoughnutdb'
-// });
-
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -25,9 +18,6 @@ const registerQuery = async (query, userData) => {
     conn = await pool.getConnection()
     const result = await conn.query(query, userData)
     return result
-
-    // const registerQuery = `INSERT INTO red_account (user_name, user_id, user_password, user_gender) VALUES (?, ?, ?, ?)`
-    // await conn.query(registerQuery, [userData.username, userData.id, userData.password, userData.gender])
   } catch (err) {
     throw err
   } finally {
@@ -77,7 +67,6 @@ const searchRedCrossQuery = async (query, searchData) => {
   try {
     conn = await pool.getConnection()
     const result = await conn.query(query, searchData)
-    //console.log(result)
     return result
   } catch (err) {
     throw err
@@ -91,8 +80,6 @@ const searchRedCrossQuery = async (query, searchData) => {
 const searchRedCross = async (selectedCity, selectedCounty) => {
   const query = `SELECT center_name FROM red_house_center WHERE city = ? AND county = ?`
   const result = await searchRedCrossQuery(query, [selectedCity, selectedCounty])
-  //console.log(result)
-  //return result.length > 0
   return result
 }
 
@@ -102,7 +89,6 @@ const searchHanmaumQuery = async (query, searchData) => {
   try {
     conn = await pool.getConnection()
     const result = await conn.query(query, searchData)
-    //console.log(result)
     return result
   } catch (err) {
     throw err
@@ -116,8 +102,6 @@ const searchHanmaumQuery = async (query, searchData) => {
 const searchHanmaum = async (selectedHanmaumCity, selectedHanmaumCounty) => {
   const query = `SELECT center_name FROM red_cafe_center WHERE city = ? AND county = ?`
   const result = await searchHanmaumQuery(query, [selectedHanmaumCity, selectedHanmaumCounty])
-  //console.log(result)
-  //return result.length > 0 -> result.length > 0은 그냥 true false만 반환해준다
   return result
 }
 
