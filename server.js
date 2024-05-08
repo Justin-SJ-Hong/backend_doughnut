@@ -67,6 +67,17 @@ app.post('/api/reserve_hanmaum', async (req, res) => {
   }
 })
 
+// 전자문진
+app.post('/api/question_submit', async (req, res) => {
+  console.log(req.body)
+
+  try {
+    res.json(req.body)
+  } catch(error) {
+    console.log(error)
+  }
+})
+
 // 회원가입
 app.post('/api/register', async (req, res) => {
   console.log(req.body)
